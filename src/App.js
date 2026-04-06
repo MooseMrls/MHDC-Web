@@ -22,12 +22,6 @@ const IMAGES = {
   experience: experienceImg,
 };
 
-const STATS = [
-  { num: 200, suffix: "+", label: "Guests Capacity" },
-  { num: 50, suffix: "+", label: "Events Per Year" },
-  { num: 3, suffix: "", label: "Conference Rooms" },
-  { num: 24, suffix: "/7", label: "Support Available" },
-];
 
 const FACILITIES = [
   {
@@ -102,28 +96,6 @@ const FAQS = [
 
 const FEATURE_TAGS = ["Retreats", "Conferences", "Training Activities", "Seminars", "Workshops", "Camps", "Team Building"];
 
-const PERKS = [
-  {
-    title: "Meals Included",
-    desc: "PM Snacks, Dinner, Breakfast, AM Snacks, and Lunch — all served in a clean, spacious dining area.",
-    icon: <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3" strokeLinecap="round" strokeLinejoin="round" /></svg>,
-  },
-  {
-    title: "AV Equipment",
-    desc: "Sound System, Microphone, and TV included in all packages. High-speed Wi-Fi for 5 devices.",
-    icon: <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" strokeLinecap="round" strokeLinejoin="round" /><path d="M8 21h8M12 17v4" strokeLinecap="round" strokeLinejoin="round" /></svg>,
-  },
-  {
-    title: "Resource Person FREE",
-    desc: "For groups of 50 pax and above, the Resource Person or Retreat Master is free for the whole stay.",
-    icon: <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" strokeLinecap="round" strokeLinejoin="round" /></svg>,
-  },
-  {
-    title: "Flexible Packages",
-    desc: "Customizable overnight and multi-day packages for retreats, seminars, trainings, and gatherings.",
-    icon: <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" strokeLinecap="round" strokeLinejoin="round" /><path d="M16 2v4M8 2v4M3 10h18" strokeLinecap="round" strokeLinejoin="round" /></svg>,
-  },
-];
 
 /* ─────────────────────────────────────────────────────────────────────────────
    LOAD SCRIPTS HELPER
@@ -712,40 +684,6 @@ function useScrollReveal() {
   }, []);
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   COUNTER COMPONENT
-───────────────────────────────────────────────────────────────────────────── */
-function Counter({ target, suffix = "" }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const started = useRef(false);
-
-  useEffect(() => {
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          let cur = 0;
-          const step = target / 55;
-          const timer = setInterval(() => {
-            cur += step;
-            if (cur >= target) {
-              setCount(target);
-              clearInterval(timer);
-            } else {
-              setCount(Math.floor(cur));
-            }
-          }, 20);
-        }
-      },
-      { threshold: 0.5 }
-    );
-    if (ref.current) io.observe(ref.current);
-    return () => io.disconnect();
-  }, [target]);
-
-  return <span ref={ref}>{count}{suffix}</span>;
-}
 
 /* ─────────────────────────────────────────────────────────────────────────────
    COMPONENTS
@@ -813,18 +751,6 @@ function Hero() {
   );
 }
 
-function StatsBar() {
-  return (
-    <div className="stats-bar">
-      {STATS.map((s, i) => (
-        <div key={i} className="stat-item">
-          <span className="stat-num"><Counter target={s.num} suffix={s.suffix} /></span>
-          <span className="stat-label">{s.label}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 function About() {
   return (
@@ -994,75 +920,6 @@ function FAQ() {
   );
 }
 
-
-function Rates() {
-  return (
-    <section id="rates" className="rates-section">
-      <div className="rates-inner">
-        <div className="rates-header reveal">
-          <span className="section-label">Transparent Pricing</span>
-          <h2 className="section-title">Our <em>Rates</em></h2>
-          <p className="section-body" style={{ margin: "0 auto", textAlign: "center" }}>
-            The MaPSA Holistic Development Center offers versatile event spaces managed by a dedicated team
-            that customizes venue setup to ensure a seamless, smooth, and meaningful event.
-          </p>
-        </div>
-        <div className="rates-table-wrap reveal" data-delay="150">
-          <table className="rates-table">
-            <thead>
-              <tr>
-                <th rowSpan="2">Room</th>
-                <th colSpan="2">Rate per Person per Day</th>
-              </tr>
-              <tr>
-                <th>Without Aircon</th>
-                <th>With Aircon</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Dormitory</td>
-                <td>₱1,300.00</td>
-                <td>₱1,400.00</td>
-              </tr>
-              <tr>
-                <td>Twin Sharing</td>
-                <td>₱1,600.00</td>
-                <td>₱1,800.00</td>
-              </tr>
-              <tr>
-                <td>Single Room</td>
-                <td>₱1,700.00</td>
-                <td>₱1,900.00</td>
-              </tr>
-              <tr>
-                <td>Conference Room (Big) — 160 pax</td>
-                <td className="rates-na">**</td>
-                <td className="rates-highlight">₱2,500 / day</td>
-              </tr>
-              <tr>
-                <td>Conference Room (Small) — 60 pax</td>
-                <td className="rates-na">**</td>
-                <td className="rates-highlight">₱1,500 / day</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div className="rates-inclusions reveal" data-delay="200">
-          <h3 className="rates-inc-title">Package Inclusions</h3>
-          <ul className="rates-inc-list">
-            <li>PM Snacks, Dinner, Breakfast, AM Snacks, and Lunch</li>
-            <li>Conference Room <em>(Non-Airconditioned)**</em></li>
-            <li>Audio-Visual Equipment: Sound System, Microphone, TV</li>
-            <li>Complimentary Wi-Fi internet connection for five (5) devices</li>
-            <li>For groups of at least 50 pax, the Resource Person or Retreat Master is <strong>FREE</strong> for the whole duration of stay</li>
-          </ul>
-          <p className="rates-tagline">"Experience a peaceful, affordable, and well-equipped venue for your seminars, retreats, trainings, and gatherings!"</p>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function Location() {
   return (
