@@ -8,18 +8,35 @@ import facRoomImg from "./assets/fac_room.png";
 import facConfImg from "./assets/fac_conf.png";
 import mhdcLogoImg from "./assets/mhdclogo.jpg";
 
+import mhdc1 from "./assets/mhdc1.png";
+import mhdc2 from "./assets/mhdc2.png";
+import mhdc3 from "./assets/mhdc3.png";
+import mhdc4 from "./assets/mhdc4.png";
+import mhdc5 from "./assets/mhdc5.png";
+import mhdc6 from "./assets/mhdc6.png";
+import mhdc7 from "./assets/mhdc7.png";
+import mhdc8 from "./assets/mhdc8.png";
+import mhdc9 from "./assets/mhdc9.png";
+import mhdc10 from "./assets/mhdc10.png";
+import mhdc11 from "./assets/mhdc11.png";
+import mhdc12 from "./assets/mhdc12.jpg";
+import mhdc13 from "./assets/mhdc13.jpg";
+import mhdc14 from "./assets/mhdc14.jpg";
+import mhdc15 from "./assets/mhdc15.jpg";
+
 /* ─────────────────────────────────────────────────────────────────────────────
    IMAGES - Loaded Local Assets
 ───────────────────────────────────────────────────────────────────────────── */
 const IMAGES = {
-  // Official MHDC logo from the website
   logo: mhdcLogoImg,
-  heroBg: aboutImg,
-  about: aboutImg,
-  facility1: facNatImg,
-  facility2: facRoomImg,
-  facility3: facConfImg,
-  experience: experienceImg,
+  heroBg: mhdc6,
+  about: mhdc12,
+  facility1: mhdc10,
+  facility2: mhdc3,
+  facility3: mhdc11,
+  facility4: mhdc7,
+  experience: mhdc14,
+  gallery: [mhdc8, mhdc1, mhdc12, mhdc15]
 };
 
 
@@ -56,7 +73,7 @@ const FACILITIES = [
     ),
   },
   {
-    img: IMAGES.facility1,
+    img: IMAGES.facility4,
     title: "Green Space",
     desc: "MHDC offers a peaceful sanctuary with scenic landscapes and abundant greenery, providing a tranquil space for rest, reflection, renewal, and reinvigoration.",
     icon: (
@@ -421,7 +438,7 @@ function useGSAPAnimations() {
     // force all animated elements to be fully visible
     const hardFallback = setTimeout(() => {
       document.querySelectorAll(
-        ".stat-item, .facility-card, .exp-item, .perk-item, .timeline-item, .faq-item, .map-wrap, .feature-tag, .nature-break-quote, .about-badge"
+        ".stat-item, .facility-card, .exp-item, .perk-item, .timeline-item, .faq-item, .map-wrap, .feature-tag, .nature-break-quote, .about-badge, .gallery-item"
       ).forEach((el) => {
         el.style.opacity = "1";
         el.style.transform = "none";
@@ -439,7 +456,7 @@ function useGSAPAnimations() {
         clearTimeout(hardFallback);
         // If GSAP failed to load, make everything visible immediately
         document.querySelectorAll(
-          ".stat-item, .facility-card, .exp-item, .perk-item, .timeline-item, .faq-item, .map-wrap, .feature-tag, .nature-break-quote, .about-badge"
+          ".stat-item, .facility-card, .exp-item, .perk-item, .timeline-item, .faq-item, .map-wrap, .feature-tag, .nature-break-quote, .about-badge, .gallery-item"
         ).forEach((el) => {
           el.style.opacity = "1";
           el.style.transform = "none";
@@ -598,6 +615,19 @@ function useGSAPAnimations() {
           document.querySelectorAll(".map-wrap").forEach(el => { el.style.opacity = "1"; el.style.transform = "none"; });
         }
       });
+      
+      // Gallery reveal
+      gsap.from(".gallery-item", {
+        scrollTrigger: { trigger: ".gallery-grid", start: "top 90%", once: true },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.out",
+        onComplete: () => {
+          document.querySelectorAll(".gallery-item").forEach(el => { el.style.opacity = "1"; el.style.transform = "none"; });
+        }
+      });
 
       // Clear the hard fallback since GSAP loaded fine
       clearTimeout(hardFallback);
@@ -713,6 +743,7 @@ function Navbar({ scrolled }) {
         <a href="#facilities" onClick={(e) => { e.preventDefault(); scrollToSection("facilities"); }}>Facilities</a>
         <a href="#experience" onClick={(e) => { e.preventDefault(); scrollToSection("experience"); }}>Experience</a>
         <a href="#schedule" onClick={(e) => { e.preventDefault(); scrollToSection("schedule"); }}>Schedule</a>
+        <a href="#gallery" onClick={(e) => { e.preventDefault(); scrollToSection("gallery"); }}>Gallery</a>
         <a href="#location" onClick={(e) => { e.preventDefault(); scrollToSection("location"); }}>Location</a>
         <a href="#faq" onClick={(e) => { e.preventDefault(); scrollToSection("faq"); }}>FAQ</a>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSfHz8PXEdgZu6n9eab-6m1fP-B3AW7tpkKysnrAdQtCBD6_tw/formResponse" target="_blank" rel="noopener noreferrer" className="nav-book">Book Now</a>
@@ -921,6 +952,28 @@ function FAQ() {
 }
 
 
+function Gallery() {
+  return (
+    <section id="gallery" className="gallery-section">
+      <div className="gallery-header reveal">
+        <span className="section-label">Moments at MHDC</span>
+        <h2 className="section-title">A Glimpse into <em>Serenity</em></h2>
+        <p className="section-body" style={{ margin: "0 auto" }}>Explore more of our center through these snapshots.</p>
+      </div>
+      <div className="gallery-inner">
+        <div className="gallery-grid">
+          {IMAGES.gallery.map((img, i) => (
+            <div key={i} className="gallery-item">
+              <img src={img} alt={`MHDC Snapshot ${i + 1}`} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
 function Location() {
   return (
     <section id="location" className="location-section">
@@ -1103,6 +1156,7 @@ function Footer() {
             <a href="#facilities" onClick={(e) => { e.preventDefault(); scrollToSection("facilities"); }}>Facilities</a>
             <a href="#experience" onClick={(e) => { e.preventDefault(); scrollToSection("experience"); }}>Experience</a>
             <a href="#schedule" onClick={(e) => { e.preventDefault(); scrollToSection("schedule"); }}>Schedule</a>
+            <a href="#gallery" onClick={(e) => { e.preventDefault(); scrollToSection("gallery"); }}>Gallery</a>
             <a href="#location" onClick={(e) => { e.preventDefault(); scrollToSection("location"); }}>Location</a>
             <a href="#faq" onClick={(e) => { e.preventDefault(); scrollToSection("faq"); }}>FAQ</a>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSfHz8PXEdgZu6n9eab-6m1fP-B3AW7tpkKysnrAdQtCBD6_tw/formResponse" target="_blank" rel="noopener noreferrer">Book Now</a>
@@ -1158,6 +1212,7 @@ export default function App() {
         <Facilities />
         <Experience />
         <Schedule />
+        <Gallery />
         <Location />
         <FAQ />
         <BookNow />
