@@ -775,7 +775,6 @@ function Navbar({ scrolled }) {
         <a href="#facilities" onClick={(e) => { e.preventDefault(); scrollToSection("facilities"); }}>Facilities</a>
         <a href="#experience" onClick={(e) => { e.preventDefault(); scrollToSection("experience"); }}>Experience</a>
         <a href="#schedule" onClick={(e) => { e.preventDefault(); scrollToSection("schedule"); }}>Schedule</a>
-        <a href="#rates" onClick={(e) => { e.preventDefault(); scrollToSection("rates"); }}>Rates</a>
         <a href="#location" onClick={(e) => { e.preventDefault(); scrollToSection("location"); }}>Location</a>
         <a href="#faq" onClick={(e) => { e.preventDefault(); scrollToSection("faq"); }}>FAQ</a>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSfHz8PXEdgZu6n9eab-6m1fP-B3AW7tpkKysnrAdQtCBD6_tw/formResponse" target="_blank" rel="noopener noreferrer" className="nav-book">Book Now</a>
@@ -833,10 +832,6 @@ function About() {
       <div className="about-inner">
         <div className="about-visual reveal-left">
           <img src={IMAGES.about} alt="MHDC Development Center" className="about-img" />
-          <div className="about-badge">
-            <span className="b-num">5★</span>
-            <span className="b-lbl">Experience</span>
-          </div>
         </div>
         <div className="about-text reveal-right" data-delay="150">
           <span className="section-label">About MHDC</span>
