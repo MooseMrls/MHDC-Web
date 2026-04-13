@@ -43,8 +43,8 @@ const IMAGES = {
   facility4: mhdc7,
   experience: mhdc14,
   gallery: [
-    mhdc6, mhdc7, mhdc10, 
-    mhdc11, mhdc15, mhdc16, mhdc17, mhdc18, mhdc19, mhdc20, mhdc21, 
+    mhdc6, mhdc7, mhdc10,
+    mhdc11, mhdc15, mhdc16, mhdc17, mhdc18, mhdc19, mhdc20, mhdc21,
     mhdc22, mhdc23, mhdc24, mhdc25, mhdc26, mhdc27
   ]
 };
@@ -754,7 +754,7 @@ function Navbar({ scrolled, onBookNow }) {
           <span className="main">MaPSA Holistic Development Center</span>
         </div>
       </div>
-      
+
       <button className={`menu-toggle ${mobileMenuOpen ? "open" : ""}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
         <span />
         <span />
@@ -842,9 +842,10 @@ function NatureBreak() {
       <NatureBreakCanvas />
       <div className="nature-break-text">
         <p className="nature-break-quote">
-          "In every walk with nature, one receives far more than <em>he seeks.</em>"
+          "Wellness is the complete integration of  <em> body, mind, and spirit.</em>"
+
         </p>
-        <p className="nature-break-attr">— John Muir</p>
+        <p className="nature-break-attr">- Greg Anderson</p>
       </div>
     </div>
   );
@@ -970,7 +971,7 @@ function Gallery() {
     if (paused) return;
     timerRef.current = setInterval(() => goTo(currentRef.current + 1), 4000);
     return () => clearInterval(timerRef.current);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paused]);
 
   return (
@@ -1186,15 +1187,15 @@ function Footer({ onBookNow }) {
 
   return (
     <footer>
-        <div className="footer-top">
+      <div className="footer-top">
         <div className="footer-brand">
           <div className="footer-logo-text" style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "12px" }} onClick={() => scrollToSection("hero")}>
             <img src={IMAGES.logo} alt="MHDC Logo" style={{ height: "48px", width: "auto", borderRadius: "10px" }} />
             MHDC
-            </div>
+          </div>
           <p className="footer-tagline">MaPSA Holistic Development Center</p>
           <p className="footer-addr">Brgy. Pasong Langka, Sta. Rosa–Tagaytay Road,<br />Silang, Cavite, Philippines</p>
-          </div>
+        </div>
         <div className="footer-nav">
           <p className="footer-nav-title">Navigation</p>
           <div className="footer-links">
@@ -1203,16 +1204,17 @@ function Footer({ onBookNow }) {
             <a href="#experience" onClick={(e) => { e.preventDefault(); scrollToSection("experience"); }}>Experience</a>
             <a href="#schedule" onClick={(e) => { e.preventDefault(); scrollToSection("schedule"); }}>Schedule</a>
             <a href="#gallery" onClick={(e) => { e.preventDefault(); scrollToSection("gallery"); }}>Gallery</a>
-              <a href="#location" onClick={(e) => { e.preventDefault(); scrollToSection("location"); }}>Location</a>
+            <a href="#location" onClick={(e) => { e.preventDefault(); scrollToSection("location"); }}>Location</a>
             <a href="#faq" onClick={(e) => { e.preventDefault(); scrollToSection("faq"); }}>FAQ</a>
             <a href="#book" onClick={(e) => { e.preventDefault(); onBookNow(); }}>Book Now</a>
-            </div>
           </div>
+        </div>
         <div className="footer-contact">
           <p className="footer-nav-title">Contact</p>
           <a href="tel:09086198471" className="footer-contact-item">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 013 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" /></svg>
-            0908 619 8471
+            09278876230 Globe/ Viber
+            <br></br>09619152153 Smart
           </a>
           <a href="mailto:mhdc@mapsa.edu.ph" className="footer-contact-item">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
@@ -1225,14 +1227,115 @@ function Footer({ onBookNow }) {
           <a href="https://www.facebook.com/mapsahdc" target="_blank" rel="noopener noreferrer" className="footer-contact-item">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" /></svg>
             facebook.com/mapsahdc
-            </a>
-          </div>
+          </a>
         </div>
+      </div>
       <div className="footer-bottom">
         <p>© 2026 MaPSA Holistic Development Center. All rights reserved.</p>
         <p>Developed by: <a href="https://sean-m.vercel.app" target="_blank" rel="noopener noreferrer" className="footer-dev-link">Sean Morales</a></p>
       </div>
     </footer>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   FACEBOOK FLOATING WIDGET
+───────────────────────────────────────────────────────────────────────────── */
+function FacebookWidget() {
+  const [open, setOpen] = useState(false);
+  const [sdkLoaded, setSdkLoaded] = useState(false);
+
+  useEffect(() => {
+    // Load Facebook SDK once
+    if (document.getElementById("facebook-jssdk")) {
+      setSdkLoaded(true);
+      return;
+    }
+    window.fbAsyncInit = function () {
+      window.FB.init({ xfbml: true, version: "v19.0" });
+      setSdkLoaded(true);
+    };
+    const script = document.createElement("script");
+    script.id = "facebook-jssdk";
+    script.src = "https://connect.facebook.net/en_US/sdk.js";
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+  }, []);
+
+  useEffect(() => {
+    if (open && sdkLoaded && window.FB) {
+      window.FB.XFBML.parse();
+    }
+  }, [open, sdkLoaded]);
+
+  return (
+    <>
+      {/* Root for FB SDK */}
+      <div id="fb-root" />
+
+      {/* Floating toggle button */}
+      <button
+        className={`fb-float-btn${open ? " fb-float-btn--active" : ""}`}
+        onClick={() => setOpen((v) => !v)}
+        aria-label="Follow us on Facebook"
+        title="Follow us on Facebook"
+      >
+        {open ? (
+          /* Close X */
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        ) : (
+          /* Facebook f */
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+          </svg>
+        )}
+        {!open && <span className="fb-float-tooltip">Follow us on Facebook</span>}
+      </button>
+
+      {/* Popup panel */}
+      <div className={`fb-float-panel${open ? " fb-float-panel--open" : ""}`}>
+        <div className="fb-float-panel-header">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="white">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+          </svg>
+          <span>Follow MHDC on Facebook</span>
+          <button className="fb-float-close" onClick={() => setOpen(false)} aria-label="Close">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <div className="fb-float-panel-body">
+          <div
+            className="fb-page"
+            data-href="https://www.facebook.com/mapsahdc"
+            data-tabs="timeline"
+            data-width="300"
+            data-height="400"
+            data-small-header="true"
+            data-adapt-container-width="true"
+            data-hide-cover="false"
+            data-show-facepile="true"
+          />
+        </div>
+        <a
+          href="https://www.facebook.com/mapsahdc"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fb-float-panel-cta"
+        >
+          Open Facebook Page ↗
+        </a>
+      </div>
+
+      {/* Backdrop (mobile) */}
+      {open && <div className="fb-float-backdrop" onClick={() => setOpen(false)} />}
+    </>
   );
 }
 
@@ -1274,6 +1377,7 @@ export default function App() {
         <BookNow />
         <Footer onBookNow={() => setShowBooking(true)} />
       </div>
+      <FacebookWidget />
     </>
   );
 }

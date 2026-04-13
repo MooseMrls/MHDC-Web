@@ -214,7 +214,8 @@ body {
   background: transparent;
   border: none;
   cursor: pointer;
-  z-index: 1001; /* Above nav links */
+  z-index: 1001;
+  /* Above nav links */
   gap: 6px;
 }
 
@@ -236,9 +237,11 @@ body {
   transform: translateY(8px) rotate(45deg);
   background: var(--dark) !important;
 }
+
 .menu-toggle.open span:nth-child(2) {
   opacity: 0;
 }
+
 .menu-toggle.open span:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
   background: var(--dark) !important;
@@ -1799,7 +1802,8 @@ footer {
   }
 
   .navbar:not(.scrolled) .nav-links a {
-    color: var(--dark); /* Override white text in open menu */
+    color: var(--dark);
+    /* Override white text in open menu */
   }
 
   .hero-content {
@@ -1840,7 +1844,7 @@ footer {
   footer {
     padding: 36px 32px;
   }
-  
+
   .footer-top {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -2480,4 +2484,174 @@ footer {
     right: 12px;
   }
 
+}
+/* ═══════════════════════════════════════════════════════════
+   FACEBOOK FLOATING WIDGET
+═══════════════════════════════════════════════════════════ */
+
+/* Floating toggle button */
+.fb-float-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 1200;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #1877F2;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(24, 119, 242, 0.45);
+  transition: transform 0.25s ease, background 0.2s ease, box-shadow 0.25s ease;
+}
+.fb-float-btn:hover {
+  transform: scale(1.1);
+  background: #1464d8;
+  box-shadow: 0 6px 28px rgba(24, 119, 242, 0.55);
+}
+.fb-float-btn--active {
+  background: #444;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+}
+.fb-float-btn--active:hover {
+  background: #222;
+}
+
+/* Tooltip */
+.fb-float-tooltip {
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: #1877F2;
+  color: #fff;
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 6px 12px;
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.fb-float-tooltip::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-left-color: #1877F2;
+}
+.fb-float-btn:hover .fb-float-tooltip {
+  opacity: 1;
+}
+
+/* Backdrop (mobile) */
+.fb-float-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1190;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(2px);
+}
+
+/* Panel */
+.fb-float-panel {
+  position: fixed;
+  bottom: 96px;
+  right: 28px;
+  z-index: 1195;
+  width: 320px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 16px 50px rgba(0,0,0,0.22);
+  transform: scale(0.88) translateY(20px);
+  transform-origin: bottom right;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s ease;
+}
+.fb-float-panel--open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Panel header */
+.fb-float-panel-header {
+  background: #1877F2;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+.fb-float-panel-header span {
+  flex: 1;
+}
+.fb-float-close {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.8);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  border-radius: 6px;
+  transition: color 0.15s;
+}
+.fb-float-close:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.15);
+}
+
+/* Panel body — contains FB Page Plugin iframe */
+.fb-float-panel-body {
+  background: #f0f2f5;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* CTA link at bottom */
+.fb-float-panel-cta {
+  display: block;
+  text-align: center;
+  padding: 12px 16px;
+  background: #f7f8fa;
+  border-top: 1px solid #e4e6eb;
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1877F2;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.fb-float-panel-cta:hover {
+  background: #e8f0fe;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .fb-float-panel {
+    right: 12px;
+    bottom: 88px;
+    width: calc(100vw - 24px);
+  }
+  .fb-float-btn {
+    right: 16px;
+    bottom: 20px;
+  }
 }
