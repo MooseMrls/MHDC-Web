@@ -1,28 +1,34 @@
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
+import BookingPage from "./BookingPage";
 
-import aboutImg from "./assets/about.png";
-import experienceImg from "./assets/experience.png";
-import facNatImg from "./assets/fac_nat.png";
-import facRoomImg from "./assets/fac_room.png";
-import facConfImg from "./assets/fac_conf.png";
+// import aboutImg from "./assets/about.png";
+// import experienceImg from "./assets/experience.png";
+// import facNatImg from "./assets/fac_nat.png";
+// import facRoomImg from "./assets/fac_room.png";
+// import facConfImg from "./assets/fac_conf.png";
 import mhdcLogoImg from "./assets/mhdclogo.jpg";
 
-import mhdc1 from "./assets/mhdc1.png";
-import mhdc2 from "./assets/mhdc2.png";
 import mhdc3 from "./assets/mhdc3.png";
-import mhdc4 from "./assets/mhdc4.png";
-import mhdc5 from "./assets/mhdc5.png";
 import mhdc6 from "./assets/mhdc6.png";
 import mhdc7 from "./assets/mhdc7.png";
-import mhdc8 from "./assets/mhdc8.png";
-import mhdc9 from "./assets/mhdc9.png";
 import mhdc10 from "./assets/mhdc10.png";
 import mhdc11 from "./assets/mhdc11.png";
 import mhdc12 from "./assets/mhdc12.jpg";
-import mhdc13 from "./assets/mhdc13.jpg";
 import mhdc14 from "./assets/mhdc14.jpg";
 import mhdc15 from "./assets/mhdc15.jpg";
+import mhdc16 from "./assets/mhdc16.jpg";
+import mhdc17 from "./assets/mhdc17.jpg";
+import mhdc18 from "./assets/mhdc18.jpg";
+import mhdc19 from "./assets/mhdc19.jpg";
+import mhdc20 from "./assets/mhdc20.jpg";
+import mhdc21 from "./assets/mhdc21.jpg";
+import mhdc22 from "./assets/mhdc22.jpg";
+import mhdc23 from "./assets/mhdc23.jpg";
+import mhdc24 from "./assets/mhdc24.jpg";
+import mhdc25 from "./assets/mhdc25.jpg";
+import mhdc26 from "./assets/mhdc26.jpg";
+import mhdc27 from "./assets/mhdc27.jpg";
 
 /* ─────────────────────────────────────────────────────────────────────────────
    IMAGES - Loaded Local Assets
@@ -36,7 +42,11 @@ const IMAGES = {
   facility3: mhdc11,
   facility4: mhdc7,
   experience: mhdc14,
-  gallery: [mhdc8, mhdc1, mhdc12, mhdc15]
+  gallery: [
+    mhdc6, mhdc7, mhdc10, 
+    mhdc11, mhdc15, mhdc16, mhdc17, mhdc18, mhdc19, mhdc20, mhdc21, 
+    mhdc22, mhdc23, mhdc24, mhdc25, mhdc26, mhdc27
+  ]
 };
 
 
@@ -92,6 +102,7 @@ const EXPERIENCES = [
   { title: "Team Building", desc: "Outdoor and indoor activities that strengthen relationships and spark creativity in a refreshing setting." },
 ];
 
+// eslint-disable-next-line no-unused-vars
 const SCHEDULE = [
   { time: "07:00 AM", title: "Morning Meditation", desc: "Start the day centered and focused with guided meditation in our serene open-air pavilion." },
   { time: "08:30 AM", title: "Healthy Breakfast", desc: "Enjoy a nutritious, farm-to-table breakfast served in the main dining hall." },
@@ -615,7 +626,7 @@ function useGSAPAnimations() {
           document.querySelectorAll(".map-wrap").forEach(el => { el.style.opacity = "1"; el.style.transform = "none"; });
         }
       });
-      
+
       // Gallery reveal
       gsap.from(".gallery-item", {
         scrollTrigger: { trigger: ".gallery-grid", start: "top 90%", once: true },
@@ -718,17 +729,22 @@ function useScrollReveal() {
 /* ─────────────────────────────────────────────────────────────────────────────
    COMPONENTS
 ───────────────────────────────────────────────────────────────────────────── */
-function Navbar({ scrolled }) {
-  const scrollToSection = (id) => {
+function Navbar({ scrolled, onBookNow }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleNavClick = (id) => {
+    setMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
     }
   };
 
   return (
-    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
-      <div className="logo-container" onClick={() => scrollToSection("hero")}>
+    <nav className={`navbar ${scrolled ? "scrolled" : ""} ${mobileMenuOpen ? "menu-open" : ""}`}>
+      <div className="logo-container" onClick={() => handleNavClick("hero")}>
         {IMAGES.logo
           ? <img src={IMAGES.logo} alt="MHDC Logo" className="logo-img" style={{ height: 44, width: "auto", objectFit: "contain", borderRadius: "10px" }} />
           : <div className="logo-icon">M</div>
@@ -738,21 +754,28 @@ function Navbar({ scrolled }) {
           <span className="main">MaPSA Holistic Development Center</span>
         </div>
       </div>
-      <div className="nav-links">
-        <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection("about"); }}>About</a>
-        <a href="#facilities" onClick={(e) => { e.preventDefault(); scrollToSection("facilities"); }}>Facilities</a>
-        <a href="#experience" onClick={(e) => { e.preventDefault(); scrollToSection("experience"); }}>Experience</a>
-        <a href="#schedule" onClick={(e) => { e.preventDefault(); scrollToSection("schedule"); }}>Schedule</a>
-        <a href="#gallery" onClick={(e) => { e.preventDefault(); scrollToSection("gallery"); }}>Gallery</a>
-        <a href="#location" onClick={(e) => { e.preventDefault(); scrollToSection("location"); }}>Location</a>
-        <a href="#faq" onClick={(e) => { e.preventDefault(); scrollToSection("faq"); }}>FAQ</a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfHz8PXEdgZu6n9eab-6m1fP-B3AW7tpkKysnrAdQtCBD6_tw/formResponse" target="_blank" rel="noopener noreferrer" className="nav-book">Book Now</a>
+      
+      <button className={`menu-toggle ${mobileMenuOpen ? "open" : ""}`} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+        <span />
+        <span />
+        <span />
+      </button>
+
+      <div className={`nav-links ${mobileMenuOpen ? "open" : ""}`}>
+        <a href="#about" onClick={(e) => { e.preventDefault(); handleNavClick("about"); }}>About</a>
+        <a href="#facilities" onClick={(e) => { e.preventDefault(); handleNavClick("facilities"); }}>Facilities</a>
+        <a href="#experience" onClick={(e) => { e.preventDefault(); handleNavClick("experience"); }}>Experience</a>
+        <a href="#schedule" onClick={(e) => { e.preventDefault(); handleNavClick("schedule"); }}>Schedule</a>
+        <a href="#gallery" onClick={(e) => { e.preventDefault(); handleNavClick("gallery"); }}>Gallery</a>
+        <a href="#location" onClick={(e) => { e.preventDefault(); handleNavClick("location"); }}>Location</a>
+        <a href="#faq" onClick={(e) => { e.preventDefault(); handleNavClick("faq"); }}>FAQ</a>
+        <a href="#book" onClick={(e) => { e.preventDefault(); setMobileMenuOpen(false); onBookNow(); }} className="nav-book">Book Now</a>
       </div>
     </nav>
   );
 }
 
-function Hero() {
+function Hero({ onBookNow }) {
   return (
     <section id="hero" className="hero" style={{
       backgroundImage: `linear-gradient(to bottom, rgba(15,15,20,0.4), rgba(15,15,20,0.85)), url(${IMAGES.heroBg})`,
@@ -761,18 +784,17 @@ function Hero() {
       backgroundAttachment: 'fixed'
     }}>
       <div className="hero-content">
-        <span className="hero-tag">MaPSA Holistic Development Center</span>
-        <h1 className="hero-title">Where Stillness</h1>
-        <span className="hero-title-accent">Meets Purpose</span>
+        <h1 className="hero-title">A Sacred Space</h1>
+        <span className="hero-title-accent">For Every Soul</span>
         <p className="hero-sub">
           Nestled in the serene hills of Silang-Tagaytay, MHDC is a sanctuary
           for retreats, conferences, workshops, and camps — where the natural
           world restores and the spirit is renewed.
         </p>
-        {/* <div className="hero-cta">
-          <a href="#booknow" className="btn-primary"><span>Reserve Your Retreat</span></a>
-          <a href="#about" className="btn-ghost">Discover MHDC</a>
-        </div> */}
+        <div className="hero-cta">
+          <button className="btn-primary" onClick={onBookNow}><span>Reserve Your Retreat</span></button>
+          <a href="#about" className="btn-ghost" onClick={(e) => { e.preventDefault(); document.getElementById("about")?.scrollIntoView({ behavior: "smooth" }); }}>Discover MHDC</a>
+        </div>
       </div>
       <div className="hero-scroll-indicator">
         <div className="scroll-mouse"></div>
@@ -830,7 +852,7 @@ function NatureBreak() {
 
 function Facilities() {
   return (
-    <section id="facilities" className="facilities-section bg-dark">
+    <section id="facilities" className="facilities-section">
       <div className="facilities-header reveal">
         <span className="section-label">Our Facilities</span>
         <h2 className="section-title">Everything You <em>Need</em></h2>
@@ -885,31 +907,6 @@ function Experience() {
 }
 
 function Schedule() {
-  return (
-    <section id="schedule" className="schedule-section">
-      <div className="schedule-inner">
-        <div className="schedule-header reveal">
-          <span className="section-label">A Day at MHDC</span>
-          <h2 className="section-title">Typical <em>Retreat</em> Schedule</h2>
-          <p className="section-body">
-            While every retreat is customized to your group's unique goals, here is a glimpse into what a typical day looks like at our center.
-          </p>
-        </div>
-        <div className="timeline">
-          {SCHEDULE.map((item, i) => (
-            <div key={i} className="timeline-item reveal" data-delay={i * 100}>
-              <div className="timeline-dot"></div>
-              <div className="timeline-time">{item.time}</div>
-              <div className="timeline-content">
-                <h3>{item.title}</h3>
-                <p>{item.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
 }
 
 function FAQ() {
@@ -922,7 +919,7 @@ function FAQ() {
           <span className="section-label">Questions?</span>
           <h2 className="section-title">Frequently Asked<br /><em>Questions</em></h2>
           <p className="section-body">
-            Planning a retreat can be complex. We're here to make it simple. Browse our most common questions below.
+            Planning a retreat can be complex. We're here to make it simple. Browse our most common questions.
           </p>
         </div>
         <div className="faq-list reveal-right" data-delay="150">
@@ -953,20 +950,69 @@ function FAQ() {
 
 
 function Gallery() {
+  const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const totalSlides = IMAGES.gallery.length;
+  const currentRef = useRef(0);
+  const timerRef = useRef(null);
+
+  const goTo = (idx) => {
+    const next = ((idx % totalSlides) + totalSlides) % totalSlides;
+    currentRef.current = next;
+    setCurrent(next);
+  };
+
+  const prev = () => { clearInterval(timerRef.current); setPaused(true); goTo(currentRef.current - 1); };
+  const next = () => { clearInterval(timerRef.current); setPaused(true); goTo(currentRef.current + 1); };
+
+  // Auto-advance every 4 seconds, stops when user manually navigates
+  useEffect(() => {
+    if (paused) return;
+    timerRef.current = setInterval(() => goTo(currentRef.current + 1), 4000);
+    return () => clearInterval(timerRef.current);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [paused]);
+
   return (
     <section id="gallery" className="gallery-section">
       <div className="gallery-header reveal">
         <span className="section-label">Moments at MHDC</span>
-        <h2 className="section-title">A Glimpse into <em>Serenity</em></h2>
-        <p className="section-body" style={{ margin: "0 auto" }}>Explore more of our center through these snapshots.</p>
+        <h2 className="section-title">A Glimpse into <em style={{ color: "var(--white)" }}>Serenity</em></h2>
       </div>
-      <div className="gallery-inner">
-        <div className="gallery-grid">
+
+      {/* ── Carousel ── */}
+      <div className="carousel-wrap">
+        <div className="carousel-stage">
           {IMAGES.gallery.map((img, i) => (
-            <div key={i} className="gallery-item">
+            <div key={i} className={`carousel-slide ${i === current ? "active" : ""}`}>
               <img src={img} alt={`MHDC Snapshot ${i + 1}`} />
+              <div className="carousel-overlay" />
             </div>
           ))}
+
+          <button className="carousel-btn carousel-btn-prev" onClick={prev} aria-label="Previous">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button className="carousel-btn carousel-btn-next" onClick={next} aria-label="Next">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+
+        <div className="carousel-dots-container">
+          <div className="carousel-dots">
+            {IMAGES.gallery.map((_, i) => (
+              <button
+                key={i}
+                className={`carousel-dot ${i === current ? "active" : ""}`}
+                onClick={() => { clearInterval(timerRef.current); setPaused(true); goTo(i); }}
+                aria-label={`Slide ${i + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -974,7 +1020,7 @@ function Gallery() {
 }
 
 
-function Location() {
+function Location({ onBookNow }) {
   return (
     <section id="location" className="location-section">
       <span className="section-label reveal">Find Us</span>
@@ -997,7 +1043,7 @@ function Location() {
           <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" /></svg>
           Facebook Page
         </a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfHz8PXEdgZu6n9eab-6m1fP-B3AW7tpkKysnrAdQtCBD6_tw/formResponse" target="_blank" rel="noopener noreferrer" className="social-btn">
+        <a href="#book" onClick={(e) => { e.preventDefault(); onBookNow(); }} className="social-btn">
           <svg viewBox="0 0 24 24"><path d="M20 12V22H4V12M22 7H2v5h20V7zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z" /></svg>
           Book Now
         </a>
@@ -1007,132 +1053,132 @@ function Location() {
 }
 
 function BookNow() {
-  return (
-    <section id="booknow" className="booknow-section">
-      <div className="booknow-inner">
-        <div className="booknow-left reveal-left">
-          <span className="section-label">Make a Reservation</span>
-          <h2 className="section-title">Reserve Your<br /><em>Retreat</em></h2>
-          <p className="section-body">
-            Experience a peaceful, affordable, and well-equipped venue for your
-            seminars, retreats, trainings, and gatherings. Get in touch with our
-            team — we respond within 24 hours.
-          </p>
-          <div className="booknow-contacts">
-            <a href="tel:09086198471" className="contact-item">
-              <div className="contact-icon">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 013 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-                </svg>
-              </div>
-              <div className="contact-detail">
-                <span className="contact-label">Call Us</span>
-                <span className="contact-value">0908 619 8471</span>
-              </div>
-            </a>
-            <a href="mailto:mhdc@mapsa.edu.ph" className="contact-item">
-              <div className="contact-icon">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
-                </svg>
-              </div>
-              <div className="contact-detail">
-                <span className="contact-label">Email Us</span>
-                <span className="contact-value">mhdc@mapsa.edu.ph</span>
-              </div>
-            </a>
-            <a href="https://www.facebook.com/mapsahdc" target="_blank" rel="noopener noreferrer" className="contact-item">
-              <div className="contact-icon">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
-                </svg>
-              </div>
-              <div className="contact-detail">
-                <span className="contact-label">Follow Us</span>
-                <span className="contact-value">facebook.com/mapsahdc</span>
-              </div>
-            </a>
-            <a href="https://www.mapsahdc.com" target="_blank" rel="noopener noreferrer" className="contact-item">
-              <div className="contact-icon">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
-                </svg>
-              </div>
-              <div className="contact-detail">
-                <span className="contact-label">Website</span>
-                <span className="contact-value">www.mapsahdc.com</span>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div className="booknow-right reveal-right" data-delay="150">
-          <div className="inclusions-card">
-            {/* Gold header band */}
-            <div className="inc-card-header">
-              <p className="inc-card-header-label">What's included</p>
-              <h3 className="inc-card-title"><strong>Package Inclusions</strong></h3>
-            </div>
+  // return (
+  //   <section id="booknow" className="booknow-section">
+  //     <div className="booknow-inner">
+  //       <div className="booknow-left reveal-left">
+  //         <span className="section-label">Make a Reservation</span>
+  //         <h2 className="section-title">Reserve Your<br /><em>Retreat</em></h2>
+  //         <p className="section-body">
+  //           Experience a peaceful, affordable, and well-equipped venue for your
+  //           seminars, retreats, trainings, and gatherings. Get in touch with our
+  //           team — we respond within 24 hours.
+  //         </p>
+  //         <div className="booknow-contacts">
+  //           <a href="tel:09086198471" className="contact-item">
+  //             <div className="contact-icon">
+  //               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  //                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 013 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+  //               </svg>
+  //             </div>
+  //             <div className="contact-detail">
+  //               <span className="contact-label">Call Us</span>
+  //               <span className="contact-value">0908 619 8471</span>
+  //             </div>
+  //           </a>
+  //           <a href="mailto:mhdc@mapsa.edu.ph" className="contact-item">
+  //             <div className="contact-icon">
+  //               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  //                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
+  //               </svg>
+  //             </div>
+  //             <div className="contact-detail">
+  //               <span className="contact-label">Email Us</span>
+  //               <span className="contact-value">mhdc@mapsa.edu.ph</span>
+  //             </div>
+  //           </a>
+  //           <a href="https://www.facebook.com/mapsahdc" target="_blank" rel="noopener noreferrer" className="contact-item">
+  //             <div className="contact-icon">
+  //               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  //                 <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+  //               </svg>
+  //             </div>
+  //             <div className="contact-detail">
+  //               <span className="contact-label">Follow Us</span>
+  //               <span className="contact-value">facebook.com/mapsahdc</span>
+  //             </div>
+  //           </a>
+  //           <a href="https://www.mapsahdc.com" target="_blank" rel="noopener noreferrer" className="contact-item">
+  //             <div className="contact-icon">
+  //               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  //                 <circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+  //               </svg>
+  //             </div>
+  //             <div className="contact-detail">
+  //               <span className="contact-label">Website</span>
+  //               <span className="contact-value">www.mapsahdc.com</span>
+  //             </div>
+  //           </a>
+  //         </div>
+  //       </div>
+  //       <div className="booknow-right reveal-right" data-delay="150">
+  //         <div className="inclusions-card">
+  //           {/* Gold header band */}
+  //           <div className="inc-card-header">
+  //             <p className="inc-card-header-label">What's included</p>
+  //             <h3 className="inc-card-title"><strong>Package Inclusions</strong></h3>
+  //           </div>
 
-            <div className="inc-card-body">
-              <p className="inc-card-sub">All packages come with the following</p>
+  //           <div className="inc-card-body">
+  //             <p className="inc-card-sub">All packages come with the following</p>
 
-              <ul className="inc-card-list">
-                <li>
-                  <div className="inc-list-icon">
-                    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                  <span className="inc-list-text">PM Snacks, Dinner, Breakfast, AM Snacks &amp; Lunch</span>
-                </li>
-                <li>
-                  <div className="inc-list-icon">
-                    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="2" y="3" width="20" height="14" rx="2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M8 21h8M12 17v4" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                  <span className="inc-list-text">Conference Room <em>(Non-Airconditioned)</em></span>
-                </li>
-                <li>
-                  <div className="inc-list-icon">
-                    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                  <span className="inc-list-text">Audio-Visual Equipment: Sound System, Microphone, TV</span>
-                </li>
-                <li>
-                  <div className="inc-list-icon">
-                    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M5 12.55a11 11 0 0114.08 0M1.42 9a16 16 0 0121.16 0M8.53 16.11a6 6 0 016.95 0M12 20h.01" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                  <span className="inc-list-text">Complimentary Wi-Fi for five (5) devices</span>
-                </li>
-              </ul>
+  //             <ul className="inc-card-list">
+  //               <li>
+  //                 <div className="inc-list-icon">
+  //                   <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2">
+  //                     <path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3" strokeLinecap="round" strokeLinejoin="round" />
+  //                   </svg>
+  //                 </div>
+  //                 <span className="inc-list-text">PM Snacks, Dinner, Breakfast, AM Snacks &amp; Lunch</span>
+  //               </li>
+  //               <li>
+  //                 <div className="inc-list-icon">
+  //                   <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2">
+  //                     <rect x="2" y="3" width="20" height="14" rx="2" strokeLinecap="round" strokeLinejoin="round" />
+  //                     <path d="M8 21h8M12 17v4" strokeLinecap="round" strokeLinejoin="round" />
+  //                   </svg>
+  //                 </div>
+  //                 <span className="inc-list-text">Conference Room <em>(Non-Airconditioned)</em></span>
+  //               </li>
+  //               <li>
+  //                 <div className="inc-list-icon">
+  //                   <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2">
+  //                     <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" strokeLinecap="round" strokeLinejoin="round" />
+  //                     <path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07" strokeLinecap="round" strokeLinejoin="round" />
+  //                   </svg>
+  //                 </div>
+  //                 <span className="inc-list-text">Audio-Visual Equipment: Sound System, Microphone, TV</span>
+  //               </li>
+  //               <li>
+  //                 <div className="inc-list-icon">
+  //                   <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2">
+  //                     <path d="M5 12.55a11 11 0 0114.08 0M1.42 9a16 16 0 0121.16 0M8.53 16.11a6 6 0 016.95 0M12 20h.01" strokeLinecap="round" strokeLinejoin="round" />
+  //                   </svg>
+  //                 </div>
+  //                 <span className="inc-list-text">Complimentary Wi-Fi for five (5) devices</span>
+  //               </li>
+  //             </ul>
 
-              <div className="inc-card-divider" />
+  //             <div className="inc-card-divider" />
 
-              {/* Free badge for 50+ pax */}
-              <div className="inc-free-badge">
-                <span className="inc-free-badge-tag">FREE</span>
-                <span className="inc-free-badge-text">
-                  <strong>Resource Person / Retreat Master</strong> — included at no cost for groups of 50+ pax
-                </span>
-              </div>
+  //             {/* Free badge for 50+ pax */}
+  //             <div className="inc-free-badge">
+  //               <span className="inc-free-badge-tag">FREE</span>
+  //               <span className="inc-free-badge-text">
+  //                 <strong>Resource Person / Retreat Master</strong> — included at no cost for groups of 50+ pax
+  //               </span>
+  //             </div>
 
-              <a href="https://mail.google.com/mail/?view=cm&to=mhdc@mapsa.edu.ph&su=Booking+Inquiry+%E2%80%94+MHDC" target="_blank" rel="noopener noreferrer" className="btn-primary inc-cta"><span>Send a Booking Inquiry</span></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  //             <a href="https://mail.google.com/mail/?view=cm&to=mhdc@mapsa.edu.ph&su=Booking+Inquiry+%E2%80%94+MHDC" target="_blank" rel="noopener noreferrer" className="btn-primary inc-cta"><span>Send a Booking Inquiry</span></a>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   </section>
+  // );
 }
 
-function Footer() {
+function Footer({ onBookNow }) {
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) element.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1140,15 +1186,15 @@ function Footer() {
 
   return (
     <footer>
-      <div className="footer-top">
+        <div className="footer-top">
         <div className="footer-brand">
           <div className="footer-logo-text" style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "12px" }} onClick={() => scrollToSection("hero")}>
             <img src={IMAGES.logo} alt="MHDC Logo" style={{ height: "48px", width: "auto", borderRadius: "10px" }} />
             MHDC
-          </div>
+            </div>
           <p className="footer-tagline">MaPSA Holistic Development Center</p>
           <p className="footer-addr">Brgy. Pasong Langka, Sta. Rosa–Tagaytay Road,<br />Silang, Cavite, Philippines</p>
-        </div>
+          </div>
         <div className="footer-nav">
           <p className="footer-nav-title">Navigation</p>
           <div className="footer-links">
@@ -1157,11 +1203,11 @@ function Footer() {
             <a href="#experience" onClick={(e) => { e.preventDefault(); scrollToSection("experience"); }}>Experience</a>
             <a href="#schedule" onClick={(e) => { e.preventDefault(); scrollToSection("schedule"); }}>Schedule</a>
             <a href="#gallery" onClick={(e) => { e.preventDefault(); scrollToSection("gallery"); }}>Gallery</a>
-            <a href="#location" onClick={(e) => { e.preventDefault(); scrollToSection("location"); }}>Location</a>
+              <a href="#location" onClick={(e) => { e.preventDefault(); scrollToSection("location"); }}>Location</a>
             <a href="#faq" onClick={(e) => { e.preventDefault(); scrollToSection("faq"); }}>FAQ</a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfHz8PXEdgZu6n9eab-6m1fP-B3AW7tpkKysnrAdQtCBD6_tw/formResponse" target="_blank" rel="noopener noreferrer">Book Now</a>
+            <a href="#book" onClick={(e) => { e.preventDefault(); onBookNow(); }}>Book Now</a>
+            </div>
           </div>
-        </div>
         <div className="footer-contact">
           <p className="footer-nav-title">Contact</p>
           <a href="tel:09086198471" className="footer-contact-item">
@@ -1179,9 +1225,9 @@ function Footer() {
           <a href="https://www.facebook.com/mapsahdc" target="_blank" rel="noopener noreferrer" className="footer-contact-item">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" /></svg>
             facebook.com/mapsahdc
-          </a>
+            </a>
+          </div>
         </div>
-      </div>
       <div className="footer-bottom">
         <p>© 2026 MaPSA Holistic Development Center. All rights reserved.</p>
         <p>Developed by: <a href="https://sean-m.vercel.app" target="_blank" rel="noopener noreferrer" className="footer-dev-link">Sean Morales</a></p>
@@ -1196,27 +1242,37 @@ function Footer() {
 export default function App() {
   const canvasRef = useRef(null);
   const scrolled = useScrolled(60);
+  const [showBooking, setShowBooking] = useState(false);
 
   useScrollReveal();
   useThreeScene(canvasRef);
   useGSAPAnimations();
 
+  // Scroll to top when booking page opens/closes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [showBooking]);
+
+  if (showBooking) {
+    return <BookingPage onBack={() => setShowBooking(false)} />;
+  }
+
   return (
     <>
       <canvas id="three-canvas" ref={canvasRef} />
       <div className="app">
-        <Navbar scrolled={scrolled} />
-        <Hero />
+        <Navbar scrolled={scrolled} onBookNow={() => setShowBooking(true)} />
+        <Hero onBookNow={() => setShowBooking(true)} />
         <About />
         <NatureBreak />
         <Facilities />
         <Experience />
         <Schedule />
         <Gallery />
-        <Location />
+        <Location onBookNow={() => setShowBooking(true)} />
         <FAQ />
         <BookNow />
-        <Footer />
+        <Footer onBookNow={() => setShowBooking(true)} />
       </div>
     </>
   );
